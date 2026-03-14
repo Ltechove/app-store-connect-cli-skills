@@ -40,9 +40,12 @@ Example:  "quran" appears in subtitle AND keywords — remove from keywords to f
 How to check:
 1. Read `metadata/app-info/{locale}.json` for `subtitle` (and `name` if present)
 2. Read `metadata/version/{latest-version}/{locale}.json` for `keywords`
-3. Lowercase and tokenize subtitle (+ name) by whitespace, then strip leading/trailing punctuation from each token
+3. Tokenize subtitle (+ name):
+   - **Latin/Cyrillic scripts:** split by whitespace, strip leading/trailing punctuation, lowercase
+   - **Chinese/Japanese/Korean:** split by `、` `，` `,` or iterate characters — each character or character-group is a token. Whitespace tokenization does not work for CJK.
+   - **Arabic:** split by whitespace, then also generate prefix-stripped variants (remove ال prefix) since Apple likely normalizes definite articles. For example, "القرآن" in subtitle should flag both "القرآن" and "قرآن" in keywords.
 4. Split keywords by comma, trim whitespace, lowercase
-5. Report intersection
+5. Report intersection (including fuzzy matches from prefix stripping)
 
 ### 2. Underutilized Fields
 
@@ -95,24 +98,55 @@ How to check:
 2. Compare each non-primary locale against the primary
 3. Flag exact matches (case-insensitive)
 
+### 6. Description Keyword Coverage
+
+Check whether keywords appear naturally in the `description` field. While Apple does **not** index descriptions for search, users who see their search terms reflected in the description are more likely to download — this improves conversion rate, which indirectly boosts rankings.
+
+```
+Severity: 💡 Info
+Example:  3 of 16 keywords not found in description: namaz, tarteel, adhan
+```
+
+How to check:
+1. Load `keywords` and `description` for each locale
+2. For each keyword, check if it appears as a substring in the description (case-insensitive)
+3. Account for inflected forms: Arabic root matches, verb conjugations (e.g., "memorizar" ≈ "memorices"), and case declensions (e.g., Russian "сура" ≈ "суры")
+4. Report missing keywords per locale — recommend weaving them naturally into existing sentences
+5. Do NOT flag: Latin-script keywords in non-Latin descriptions (e.g., "quran" in Cyrillic text) — these target separate search paths
+
 ## Phase 2: Astro MCP Keyword Gap Analysis
 
-If Astro MCP is available and the app is tracked, run keyword gap analysis.
+If Astro MCP is available and the app is tracked, run keyword gap analysis. **Run this per store/locale, not just for the US store** — keyword popularity varies dramatically across markets.
 
 ### Steps
 
 1. **Get current keywords**: Call `get_app_keywords` with the app ID to retrieve tracked keywords and their current rankings.
 
-2. **Get suggestions**: Call `get_keyword_suggestions` with the app ID to get Astro's recommended keywords based on category and competitor analysis.
+2. **Ensure multi-store tracking**: For each locale with a corresponding App Store territory (e.g., `ar-SA` → Saudi Arabia, `fr-FR` → France, `tr` → Turkey), use `add_keywords` to add keyword tracking in that store. Without this, `search_rankings` returns empty for non-US stores.
 
-3. **Diff against metadata**: Compare suggested keywords against the tokens present in `subtitle`, `name` (if available), and `keywords` fields from the local metadata.
+3. **Extract competitor keywords**: Call `extract_competitors_keywords` with 3-5 top competitor app IDs to find keyword gaps. This is the highest-value Astro tool — it reveals keywords competitors rank for that you don't. Run this per store when possible.
 
-4. **Surface gaps**: Report all suggestions not present in any metadata field, ranked by popularity score (highest first).
+4. **Get suggestions**: Call `get_keyword_suggestions` with the app ID for additional recommendations based on category analysis.
+
+5. **Check current rankings**: Call `search_rankings` to see where the app currently ranks for tracked keywords in each store.
+
+6. **Diff against metadata**: Compare suggested and competitor keywords against the tokens present in `subtitle`, `name` (if available), and `keywords` fields from the local metadata.
+
+7. **Surface gaps**: Report all gaps ranked by popularity score (highest first). Include the source (competitor analysis vs. suggestion).
+
+### Cross-Field Combo Strategy
+
+When recommending keyword additions, consider how single words combine across indexed fields (title + subtitle + keywords). For example:
+- Adding "namaz" to keywords when "vakti" is already present enables matching the search "namaz vakti" (66 popularity)
+- Adding "holy" to keywords when "Quran" is in the subtitle enables matching "holy quran" (58 popularity)
+
+Flag high-value combos in recommendations.
 
 ### Skip Conditions
 
 - Astro MCP not connected → skip with note: "Connect Astro MCP for keyword gap analysis"
 - App not tracked in Astro → skip with note: "Add app to Astro with `mcp__astro__add_app` for gap analysis"
+- Store not tracked for a locale → add tracking with `add_keywords` before querying
 
 ## Output Format
 
