@@ -27,7 +27,7 @@ Use this skill to manage build state, processing, and retention.
 - Apply expiration:
   - `asc builds expire-all --app "APP_ID" --older-than 90d --confirm`
 - Single build:
-  - `asc builds expire --build "BUILD_ID"`
+  - `asc builds expire --build "BUILD_ID" --confirm`
 
 ## Notes
 - `asc builds upload` prepares upload operations only; use `asc publish` for end-to-end flows.

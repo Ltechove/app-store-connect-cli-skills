@@ -13,7 +13,7 @@ Goal: compare ASC and RevenueCat, produce a no-write reconciliation report.
 1. Read ASC:
    - `asc subscriptions groups list --app "APP_ID" --paginate --output json`
    - `asc iap list --app "APP_ID" --paginate --output json`
-   - `asc subscriptions list --group "GROUP_ID" --paginate --output json` (for each group)
+   - `asc subscriptions list --group-id "GROUP_ID" --paginate --output json` (for each group)
 2. Read RevenueCat via MCP:
    - list apps/products/entitlements/offerings/packages for `project_id`
 3. Build and present a diff:
@@ -36,8 +36,8 @@ Goal: bootstrap both systems when store products are partially missing.
    - create group:
      - `asc subscriptions groups create --app "APP_ID" --reference-name "Premium"`
    - create subscriptions:
-     - `asc subscriptions create --group "GROUP_ID" --ref-name "Monthly" --product-id "com.example.premium.monthly" --subscription-period ONE_MONTH`
-     - `asc subscriptions create --group "GROUP_ID" --ref-name "Annual" --product-id "com.example.premium.annual" --subscription-period ONE_YEAR`
+     - `asc subscriptions create --group-id "GROUP_ID" --reference-name "Monthly" --product-id "com.example.premium.monthly" --subscription-period ONE_MONTH`
+     - `asc subscriptions create --group-id "GROUP_ID" --reference-name "Annual" --product-id "com.example.premium.annual" --subscription-period ONE_YEAR`
 3. Re-read ASC to capture authoritative IDs.
 4. In RevenueCat:
    - create app if missing (`type: app_store`, same bundle identifier)

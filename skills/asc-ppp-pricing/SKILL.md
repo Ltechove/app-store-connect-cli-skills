@@ -10,7 +10,7 @@ Use this skill to create or update localized pricing across territories based on
 Prefer the current high-level flows:
 - `asc subscriptions setup` and `asc iap setup` when you are creating a new product
 - `asc subscriptions pricing ...` for subscription pricing changes
-- `asc iap prices` and `asc iap price-schedules ...` for IAP pricing changes
+- `asc iap pricing summary` and `asc iap pricing schedules ...` for IAP pricing changes
 
 ## Preconditions
 - Ensure credentials are set (`asc auth login` or `ASC_*` env vars).
@@ -161,11 +161,11 @@ Notes:
 - Use `--tier` or `--price-point-id` when you want deterministic tier- or ID-based setup.
 
 ### Inspect current IAP pricing before changes
-Use `asc iap prices` as the main current-state summary for PPP work.
+Use `asc iap pricing summary` as the main current-state summary for PPP work.
 
 ```bash
-asc iap prices --iap-id "IAP_ID" --territory "USA"
-asc iap prices --iap-id "IAP_ID" --territory "IND"
+asc iap pricing summary --iap-id "IAP_ID" --territory "USA"
+asc iap pricing summary --iap-id "IAP_ID" --territory "IND"
 ```
 
 This returns the base territory, current price, estimated proceeds, and scheduled changes for the requested territory.
@@ -174,33 +174,33 @@ This returns the base territory, current price, estimated proceeds, and schedule
 Use price-point lookup when you want to inspect or pin exact price point IDs.
 
 ```bash
-asc iap price-points list --iap-id "IAP_ID" --territory "USA" --paginate --price "9.99"
-asc iap price-points equalizations --id "PRICE_POINT_ID"
+asc iap pricing price-points list --iap-id "IAP_ID" --territory "USA" --paginate --price "9.99"
+asc iap pricing price-points equalizations --id "PRICE_POINT_ID"
 ```
 
 ### Create or update an IAP price schedule
 For manual PPP updates, create a price schedule directly.
 
 ```bash
-asc iap price-schedules create --iap-id "IAP_ID" --base-territory "USA" --price "4.99" --start-date "2026-04-01"
-asc iap price-schedules create --iap-id "IAP_ID" --base-territory "USA" --tier 5 --start-date "2026-04-01"
-asc iap price-schedules create --iap-id "IAP_ID" --base-territory "USA" --prices "PRICE_POINT_ID:2026-04-01"
+asc iap pricing schedules create --iap-id "IAP_ID" --base-territory "USA" --price "4.99" --start-date "2026-04-01"
+asc iap pricing schedules create --iap-id "IAP_ID" --base-territory "USA" --tier 5 --start-date "2026-04-01"
+asc iap pricing schedules create --iap-id "IAP_ID" --base-territory "USA" --prices "PRICE_POINT_ID:2026-04-01"
 ```
 
 Use these when you are intentionally creating or replacing schedule entries. For deeper inspection:
 
 ```bash
-asc iap price-schedules get --iap-id "IAP_ID"
-asc iap price-schedules manual-prices --schedule-id "SCHEDULE_ID" --paginate
-asc iap price-schedules automatic-prices --schedule-id "SCHEDULE_ID" --paginate
+asc iap pricing schedules get --iap-id "IAP_ID"
+asc iap pricing schedules manual-prices --schedule-id "SCHEDULE_ID" --paginate
+asc iap pricing schedules automatic-prices --schedule-id "SCHEDULE_ID" --paginate
 ```
 
 ### Verify after apply
 Use the summary command again after scheduling or applying pricing changes.
 
 ```bash
-asc iap prices --iap-id "IAP_ID" --territory "USA"
-asc iap prices --iap-id "IAP_ID" --territory "IND"
+asc iap pricing summary --iap-id "IAP_ID" --territory "USA"
+asc iap pricing summary --iap-id "IAP_ID" --territory "IND"
 ```
 
 For future-dated schedules, expect scheduled changes rather than an immediately updated current price.
@@ -227,6 +227,7 @@ For future-dated schedules, expect scheduled changes rather than an immediately 
 ## Notes
 - Prefer canonical commands in docs and automation: `asc subscriptions pricing ...`
 - Older `asc subscriptions prices ...` paths still exist, but the canonical pricing family is clearer.
+- Prefer canonical IAP commands in docs and automation: `asc iap pricing ...`
 - `asc subscriptions pricing prices import --dry-run` is the safest subscription batch PPP path today.
 - `asc subscriptions setup` and `asc iap setup` already provide built-in post-create verification.
 - There is not yet a single first-class before/after PPP diff command; use the current summary commands before and after apply.

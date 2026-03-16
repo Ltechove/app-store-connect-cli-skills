@@ -28,7 +28,7 @@ Fields: `name`, `subtitle`, `privacyPolicyUrl`, `privacyChoicesUrl`, `privacyPol
 
 ```bash
 # First, find the app info ID
-asc app-infos list --app "APP_ID"
+asc apps info list --app "APP_ID"
 
 # List app info localizations
 asc localizations list --app "APP_ID" --type app-info --app-info "APP_INFO_ID"
@@ -64,16 +64,16 @@ asc migrate import --help
 ### Version-specific fields
 ```bash
 # What's New
-asc app-info set --app "APP_ID" --locale "en-US" --whats-new "Bug fixes and improvements"
+asc apps info edit --app "APP_ID" --locale "en-US" --whats-new "Bug fixes and improvements"
 
 # Description
-asc app-info set --app "APP_ID" --locale "en-US" --description "Your app description here"
+asc apps info edit --app "APP_ID" --locale "en-US" --description "Your app description here"
 
 # Keywords
-asc app-info set --app "APP_ID" --locale "en-US" --keywords "keyword1,keyword2,keyword3"
+asc apps info edit --app "APP_ID" --locale "en-US" --keywords "keyword1,keyword2,keyword3"
 
 # Support URL
-asc app-info set --app "APP_ID" --locale "en-US" --support-url "https://support.example.com"
+asc apps info edit --app "APP_ID" --locale "en-US" --support-url "https://support.example.com"
 ```
 
 ### Version metadata

@@ -8,23 +8,23 @@ description: Orchestrate TestFlight distribution, groups, testers, and What to T
 Use this skill when managing TestFlight testers, groups, and build distribution.
 
 ## Export current config
-- `asc testflight sync pull --app "APP_ID" --output "./testflight.yaml"`
+- `asc testflight config export --app "APP_ID" --output "./testflight.yaml"`
 - Include builds/testers:
-  - `asc testflight sync pull --app "APP_ID" --output "./testflight.yaml" --include-builds --include-testers`
+  - `asc testflight config export --app "APP_ID" --output "./testflight.yaml" --include-builds --include-testers`
 
 ## Manage groups and testers
 - Groups:
-  - `asc testflight beta-groups list --app "APP_ID" --paginate`
-  - `asc testflight beta-groups create --app "APP_ID" --name "Beta Testers"`
+  - `asc testflight groups list --app "APP_ID" --paginate`
+  - `asc testflight groups create --app "APP_ID" --name "Beta Testers"`
 - Testers:
-  - `asc testflight beta-testers list --app "APP_ID" --paginate`
-  - `asc testflight beta-testers add --app "APP_ID" --email "tester@example.com" --group "Beta Testers"`
-  - `asc testflight beta-testers invite --app "APP_ID" --email "tester@example.com"`
+  - `asc testflight testers list --app "APP_ID" --paginate`
+  - `asc testflight testers add --app "APP_ID" --email "tester@example.com" --group "Beta Testers"`
+  - `asc testflight testers invite --app "APP_ID" --email "tester@example.com"`
 
 ## Distribute builds
 - `asc builds add-groups --build "BUILD_ID" --group "GROUP_ID"`
 - Remove from group:
-  - `asc builds remove-groups --build "BUILD_ID" --group "GROUP_ID"`
+  - `asc builds remove-groups --build "BUILD_ID" --group "GROUP_ID" --confirm`
 
 ## What to Test notes
 - `asc builds test-notes create --build "BUILD_ID" --locale "en-US" --whats-new "Test instructions"`

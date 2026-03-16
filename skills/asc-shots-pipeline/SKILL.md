@@ -11,7 +11,7 @@ Use this skill for agent-driven screenshot workflows where the app is built and 
 - Implemented now: build/run, AXe plan capture, frame composition, and upload.
 - Device discovery is built-in via `asc screenshots list-frame-devices`.
 - Local screenshot automation commands are experimental in asc cli.
-- Framing is pinned to Koubou `0.13.0` for deterministic output.
+- Framing is pinned to Koubou `0.14.0` for deterministic output.
 - Feedback/issues: https://github.com/rudrankriyam/App-Store-Connect-CLI/issues/new/choose
 
 ## Defaults
@@ -113,12 +113,12 @@ Minimal `.asc/screenshots.json` example:
 
 ## 4) Frame screenshots with `asc screenshots frame`
 
-asc cli pins framing to Koubou `0.13.0`.
+asc cli pins framing to Koubou `0.14.0`.
 Install and verify before running framing steps:
 
 ```bash
-pip install koubou==0.13.0
-kou --version  # expect 0.13.0
+pip install koubou==0.14.0
+kou --version  # expect 0.14.0
 ```
 
 List supported frame device values first:
@@ -143,6 +143,7 @@ Supported `--device` values:
 - `iphone-17-pro-max`
 - `iphone-16e`
 - `iphone-17`
+- `mac`
 
 ## 5) Upload screenshots with asc
 
@@ -179,7 +180,7 @@ asc screenshots list --version-localization "LOC_ID" --output table
 - Ensure screenshot files exist before upload.
 - Use explicit long flags (`--app`, `--output`, `--version-localization`, etc.).
 - Treat screenshot-local automation as experimental and call it out in user-facing handoff notes.
-- If framing fails with a version error, re-install pinned Koubou: `pip install koubou==0.13.0`.
+- If framing fails with a version error, re-install pinned Koubou: `pip install koubou==0.14.0`.
 
 ## 6) Multi-locale capture (optional)
 

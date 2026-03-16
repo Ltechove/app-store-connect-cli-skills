@@ -32,7 +32,7 @@ sv, th, tr, uk, vi, zh-Hans, zh-Hant
 asc subscriptions groups list --app "APP_ID" --output table
 
 # Find subscriptions within a group
-asc subscriptions list --group "GROUP_ID" --output table
+asc subscriptions list --group-id "GROUP_ID" --output table
 ```
 
 ### 2. Check existing localizations
@@ -213,7 +213,7 @@ asc subscriptions groups list --app "APP_ID" --paginate
 #    (repeat group localization workflow above)
 
 # 3. For each group, list subscriptions
-asc subscriptions list --group "GROUP_ID" --paginate
+asc subscriptions list --group-id "GROUP_ID" --paginate
 
 # 4. For each subscription, localize it
 #    (repeat subscription localization workflow above)

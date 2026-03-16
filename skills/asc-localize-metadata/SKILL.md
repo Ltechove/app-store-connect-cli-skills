@@ -13,7 +13,7 @@ Use this skill to pull English (or any source locale) App Store metadata, transl
   - `asc localizations --help`
   - `asc localizations download --help`
   - `asc localizations upload --help`
-  - `asc app-info set --help`
+  - `asc apps info edit --help`
 - Prefer explicit long flags (`--app`, `--version`, `--version-id`, `--type`, `--app-info`).
 - Default output is JSON; use `--output table` only for human verification steps.
 - Prefer deterministic ID-based operations. Do not "pick the first row" via `head -1` unless the user explicitly agrees.
@@ -55,7 +55,7 @@ asc versions list --app "APP_ID" --state READY_FOR_DISTRIBUTION --output table
 asc versions list --app "APP_ID" --state PREPARE_FOR_SUBMISSION --output table
 
 # Find app info ID (for app-level fields like name/subtitle)
-asc app-infos list --app "APP_ID" --output table
+asc apps info list --app "APP_ID" --output table
 ```
 
 Notes:
@@ -168,7 +168,7 @@ asc localizations upload --app "APP_ID" --type app-info --app-info "APP_INFO_ID"
 ```bash
 # Version localization fields (fine control).
 # Prefer passing the explicit version ID for determinism.
-asc app-info set --app "APP_ID" --version-id "VERSION_ID" --locale "nl-NL" \
+asc apps info edit --app "APP_ID" --version-id "VERSION_ID" --locale "nl-NL" \
   --description "Je beschrijving..." \
   --keywords "wiskunde,kinderen,tafels" \
   --whats-new "Bugfixes en verbeteringen"
@@ -220,7 +220,7 @@ APP_ID="APP_ID_HERE"
 asc versions list --app "$APP_ID" --state PREPARE_FOR_SUBMISSION --output table
 VERSION_ID="VERSION_ID_HERE"
 
-asc app-infos list --app "$APP_ID" --output table
+asc apps info list --app "$APP_ID" --output table
 APP_INFO_ID="APP_INFO_ID_HERE"
 
 # 2) Download English source (or your chosen source locale)
