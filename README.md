@@ -26,6 +26,8 @@ Guidance for running `asc` commands (flags, pagination, output, auth).
 - You need the correct `asc` command or flag combination
 - You want JSON-first output and pagination tips for automation
 
+**Example:** `Find the right asc command to list all builds for app 123456789 as JSON and paginate through everything.`
+
 ### asc-workflow
 
 Define and run repo-local automation graphs using `asc workflow` and `.asc/workflow.json`.
@@ -36,6 +38,8 @@ Define and run repo-local automation graphs using `asc workflow` and `.asc/workf
 - You need hooks (`before_all`, `after_all`, `error`), conditionals (`if`), and private helper sub-workflows
 - You want validation (`asc workflow validate`) with cycle/reference checks before execution
 
+**Example:** `Create an asc workflow that stages a release, validates it, and only submits when CONFIRM_RELEASE=true.`
+
 ### asc-app-create-ui
 
 Create a new App Store Connect app via browser automation when no API exists.
@@ -43,6 +47,8 @@ Create a new App Store Connect app via browser automation when no API exists.
 **Use when:**
 - You need to create an app record (name, bundle ID, SKU, primary language)
 - You are comfortable logging in to App Store Connect in a real browser
+
+**Example:** `Create a new App Store Connect app for com.example.myapp with SKU MYAPP123 and primary language English (U.S.).`
 
 ### asc-xcode-build
 
@@ -53,6 +59,8 @@ Build, archive, and export iOS/macOS apps with xcodebuild before uploading.
 - You're setting up CI/CD build pipelines
 - You need to configure ExportOptions.plist
 - You're troubleshooting encryption compliance issues
+
+**Example:** `Archive and export my macOS app as a PKG I can upload to App Store Connect.`
 
 ### asc-shots-pipeline
 
@@ -65,6 +73,8 @@ Agent-first screenshot pipeline using xcodebuild/simctl, AXe, JSON plans, `asc s
 - You need to discover supported frame devices (`asc screenshots list-frame-devices`)
 - You want pinned Koubou guidance for deterministic framing (`koubou==0.14.0`)
 
+**Example:** `Build my iOS app, capture the home and settings screens in the simulator, frame them, and prepare them for upload.`
+
 ### asc-release-flow
 
 End-to-end release workflows for TestFlight and App Store.
@@ -74,6 +84,8 @@ End-to-end release workflows for TestFlight and App Store.
 - You need the manual sequence for fine-grained control
 - You're releasing for iOS, macOS, visionOS, or tvOS
 
+**Example:** `Publish version 2.4.0 of my iOS app to TestFlight for the Beta Testers group and wait for processing.`
+
 ### asc-signing-setup
 
 Bundle IDs, capabilities, certificates, and provisioning profiles.
@@ -82,6 +94,8 @@ Bundle IDs, capabilities, certificates, and provisioning profiles.
 - You are onboarding a new app or bundle ID
 - You need to create or rotate signing assets
 
+**Example:** `Set up signing for com.example.app with iCloud enabled, a distribution certificate, and an App Store profile.`
+
 ### asc-id-resolver
 
 Resolve IDs for apps, builds, versions, groups, and testers.
@@ -89,6 +103,8 @@ Resolve IDs for apps, builds, versions, groups, and testers.
 **Use when:**
 - A command requires IDs and you only have names
 - You want deterministic outputs for automation
+
+**Example:** `Resolve the App Store Connect app ID, latest build ID, and TestFlight group IDs for MyApp.`
 
 ### asc-metadata-sync
 
@@ -99,6 +115,8 @@ Metadata and localization sync (including legacy metadata format migration).
 - You need to validate character limits before upload
 - You need to update privacy policy URL or app-level metadata
 
+**Example:** `Pull my App Store metadata into ./metadata, update the privacy policy URL, and push the changes back safely.`
+
 ### asc-localize-metadata
 
 Translate App Store metadata (description, keywords, what's new, subtitle) to multiple locales using LLM translation prompts and push via `asc`.
@@ -107,6 +125,8 @@ Translate App Store metadata (description, keywords, what's new, subtitle) to mu
 - You want to localize an app's App Store listing from a source locale (usually en-US)
 - You need locale-aware keywords (not literal translations) and strict character limit enforcement
 - You want a review-before-upload workflow for translations
+
+**Example:** `Translate my en-US App Store metadata into German, French, and Japanese, then show me the changes before upload.`
 
 ### asc-aso-audit
 
@@ -117,6 +137,8 @@ Run an offline ASO audit on canonical App Store metadata under `./metadata` and 
 - You want keyword-gap analysis against Astro-tracked rankings and competitor terms
 - You want follow-up actions that map cleanly to `asc metadata keywords ...`
 
+**Example:** `Audit ./metadata for ASO problems, then show the highest-value keyword gaps from Astro for my latest version.`
+
 ### asc-whats-new-writer
 
 Generate engaging, localized App Store release notes from git log, bullet points, or free text using canonical metadata under `./metadata`.
@@ -125,6 +147,8 @@ Generate engaging, localized App Store release notes from git log, bullet points
 - You want polished What's New copy from rough release inputs
 - You want localized release notes across existing locales
 - You want a review-before-upload workflow using `asc metadata push` or direct metadata edits
+
+**Example:** `Turn these release bullet points into polished What's New notes for en-US and localize them across my existing metadata locales.`
 
 ### asc-submission-health
 
@@ -135,6 +159,8 @@ Preflight checks, submission, and review monitoring.
 - You need to track review status and re-submit safely
 - You're troubleshooting "version not in valid state" errors
 
+**Example:** `Preflight my iOS submission, check encryption/content-rights issues, and tell me what will block review.`
+
 ### asc-testflight-orchestration
 
 Beta groups, testers, build distribution, and What to Test notes.
@@ -143,6 +169,8 @@ Beta groups, testers, build distribution, and What to Test notes.
 - You manage multiple TestFlight groups and testers
 - You need consistent beta rollout steps
 
+**Example:** `Export my current TestFlight config, create a new external group, add testers, and attach the latest build.`
+
 ### asc-build-lifecycle
 
 Build processing, latest build resolution, and cleanup.
@@ -150,6 +178,8 @@ Build processing, latest build resolution, and cleanup.
 **Use when:**
 - You are waiting on build processing
 - You want automated cleanup and retention policies
+
+**Example:** `Find the latest processed build for app 123456789 and preview expiring all TestFlight builds older than 90 days.`
 
 ### asc-ppp-pricing
 
@@ -160,6 +190,8 @@ Territory-specific pricing using purchasing power parity (PPP).
 - You are implementing localized pricing strategies
 - You need to adjust prices based on regional purchasing power
 
+**Example:** `Update my subscription pricing for India, Brazil, and Mexico using a PPP-style rollout and verify the result.`
+
 ### asc-subscription-localization
 
 Bulk-localize subscription and IAP display names across all App Store locales.
@@ -168,6 +200,8 @@ Bulk-localize subscription and IAP display names across all App Store locales.
 - You want to set the same subscription display name in every language at once
 - You need to fill in missing subscription/group/IAP localizations
 - You're tired of clicking through each locale in App Store Connect manually
+
+**Example:** `Set the display name Monthly Pro across all missing locales for this subscription and verify which locales were created.`
 
 ### asc-revenuecat-catalog-sync
 
@@ -178,6 +212,8 @@ Reconcile App Store Connect subscriptions/IAP with RevenueCat products, entitlem
 - You need to create missing ASC subscriptions/IAPs before mapping them
 - You want an audit-first workflow with explicit apply confirmation
 
+**Example:** `Audit my App Store Connect subscriptions and IAPs against RevenueCat, then create any missing mappings after I approve the plan.`
+
 ### asc-notarization
 
 Archive, export, and notarize macOS apps with Developer ID signing.
@@ -186,6 +222,8 @@ Archive, export, and notarize macOS apps with Developer ID signing.
 - You need to notarize a macOS app for distribution outside the App Store
 - You want the full flow: archive → Developer ID export → zip → notarize → staple
 - You're troubleshooting Developer ID signing or trust chain issues
+
+**Example:** `Archive my macOS app, export it for Developer ID, notarize the ZIP, and staple the result.`
 
 ### asc-crash-triage
 
@@ -197,6 +235,8 @@ Triage TestFlight crashes, beta feedback, and performance diagnostics.
 - You want to check beta tester feedback and screenshots
 - You need performance diagnostics (hangs, disk writes, launches) for a build
 
+**Example:** `Show me the latest TestFlight crashes and feedback for MyApp, grouped by signature and affected build.`
+
 ### asc-wall-submit
 
 Submit or update an app entry in the App-Store-Connect-CLI Wall of Apps using `asc apps wall submit`.
@@ -205,6 +245,8 @@ Submit or update an app entry in the App-Store-Connect-CLI Wall of Apps using `a
 - You want to add your app to the Wall of Apps
 - You want to update an existing Wall entry
 - You want the built-in CLI Wall submission flow
+
+**Example:** `Submit app 1234567890 to the Wall of Apps using the built-in asc apps wall submit flow.`
 
 ## Installation
 
@@ -217,29 +259,6 @@ npx skills add rudrankriyam/app-store-connect-cli-skills
 ## Usage
 
 Skills are automatically available once installed. The agent will use them when relevant tasks are detected.
-
-**Examples:**
-
-```
-Build and upload my macOS app to App Store Connect
-```
-
-```
-Publish my `MyApp` build `1.2.3` to TestFlight group `Beta Testers` and wait for processing
-```
-
-```
-Set up signing for bundle ID `com.example.app`: enable iCloud, create a distribution certificate, and create an App Store profile
-```
-
-```
-Validate metadata in `./metadata` and sync it to App Store Connect for version `1.2.3`
-
-```
-
-```
-Submit my iOS app version 2.0 to App Store review
-```
 
 ## Skill Structure
 
