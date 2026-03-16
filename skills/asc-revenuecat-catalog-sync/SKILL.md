@@ -65,7 +65,7 @@ Execute approved actions in this order:
 asc subscriptions groups list --app "APP_ID" --paginate --output json
 asc iap list --app "APP_ID" --paginate --output json
 # for each subscription group:
-asc subscriptions list --group "GROUP_ID" --paginate --output json
+asc subscriptions list --group-id "GROUP_ID" --paginate --output json
 ```
 
 ### Step B - Read current RevenueCat catalog (MCP)
@@ -101,8 +101,8 @@ asc subscriptions groups create --app "APP_ID" --reference-name "Premium"
 
 # create subscription
 asc subscriptions create \
-  --group "GROUP_ID" \
-  --ref-name "Monthly" \
+  --group-id "GROUP_ID" \
+  --reference-name "Monthly" \
   --product-id "com.example.premium.monthly" \
   --subscription-period ONE_MONTH
 

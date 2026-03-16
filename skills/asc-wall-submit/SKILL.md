@@ -1,11 +1,11 @@
 ---
 name: asc-wall-submit
-description: Submit or update a Wall of Apps entry in the App-Store-Connect-CLI repository using the existing generate-and-PR flow. Use when the user says "submit to wall of apps", "add my app to the wall", "wall-of-apps", or asks for make generate app + PR help.
+description: Submit or update a Wall of Apps entry in the App-Store-Connect-CLI repository using `asc apps wall submit`. Use when the user says "submit to wall of apps", "add my app to the wall", or "wall-of-apps".
 ---
 
 # asc wall submit
 
-Use this skill to add or update a Wall of Apps entry without introducing new CLI surface area.
+Use this skill to add or update a Wall of Apps entry with the built-in CLI flow.
 
 ## When to use
 
@@ -15,41 +15,34 @@ Use this skill to add or update a Wall of Apps entry without introducing new CLI
 
 ## Required inputs
 
-Collect and confirm all fields before running commands:
+Use one of these input paths:
 
-- `app`: app name
-- `link`: app URL (`http`/`https`, usually App Store URL)
-- `creator`: GitHub handle or creator name
-- `platform`: comma-separated labels (for example: `iOS,macOS`)
-
-If any value is missing, ask for it first.
+- Standard App Store flow: `app` ID
+- Manual/pre-release flow: `link` plus `name`
 
 ## Submission workflow
 
 1. Run commands from the `App-Store-Connect-CLI` repository root.
-2. Run:
-   `make generate app APP="Your App Name" LINK="https://apps.apple.com/app/id1234567890" CREATOR="your-handle" PLATFORM="iOS,macOS"`
-3. Verify generated changes include:
-   - `docs/wall-of-apps.json`
-   - `README.md`
-4. Review diff and confirm:
-   - The JSON entry is added or updated correctly.
-   - The README wall snippet is regenerated from markers.
-5. Open a focused PR with only the Wall-related generated changes.
+2. Preview first:
+   - `asc apps wall submit --app "1234567890" --dry-run`
+   - or `asc apps wall submit --link "https://testflight.apple.com/join/ABCDEFG" --name "My Beta App" --dry-run`
+3. Apply with confirmation:
+   - `asc apps wall submit --app "1234567890" --confirm`
+   - or `asc apps wall submit --link "https://testflight.apple.com/join/ABCDEFG" --name "My Beta App" --confirm`
+4. Review the generated PR plan and resulting change to `docs/wall-of-apps.json`.
 
 ## Guardrails
 
-- Do not hand-edit the Wall snippet in `README.md`.
 - Do not modify unrelated entries in `docs/wall-of-apps.json`.
-- If generation fails due to invalid input, fix inputs and rerun the generator.
+- If submission fails due to invalid input, fix the inputs and rerun the CLI command.
 - Keep submission path PR-based unless maintainers define an issue-based intake flow.
 
 ## Examples
 
 Add new app:
 
-`make generate app APP="My App" LINK="https://apps.apple.com/app/id1234567890" CREATOR="my-handle" PLATFORM="iOS"`
+`asc apps wall submit --app "1234567890" --confirm`
 
-Update existing app (same app name updates in place):
+Submit a non-App-Store/TestFlight entry:
 
-`make generate app APP="My App" LINK="https://apps.apple.com/app/id1234567890" CREATOR="my-handle" PLATFORM="iOS,macOS"`
+`asc apps wall submit --link "https://testflight.apple.com/join/ABCDEFG" --name "My Beta App" --confirm`

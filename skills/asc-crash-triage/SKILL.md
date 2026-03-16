@@ -17,20 +17,20 @@ Use this skill to fetch, analyze, and summarize TestFlight crash reports, beta f
 
 List recent crashes (newest first):
 
-- `asc crashes --app "APP_ID" --sort -createdDate --limit 10`
-- Filter by build: `asc crashes --app "APP_ID" --build "BUILD_ID" --sort -createdDate --limit 10`
-- Filter by device/OS: `asc crashes --app "APP_ID" --device-model "iPhone16,2" --os-version "18.0"`
-- All crashes: `asc crashes --app "APP_ID" --paginate`
-- Table view: `asc crashes --app "APP_ID" --sort -createdDate --limit 10 --output table`
+- `asc testflight crashes list --app "APP_ID" --sort -createdDate --limit 10`
+- Filter by build: `asc testflight crashes list --app "APP_ID" --build "BUILD_ID" --sort -createdDate --limit 10`
+- Filter by device/OS: `asc testflight crashes list --app "APP_ID" --device-model "iPhone16,2" --os-version "18.0"`
+- All crashes: `asc testflight crashes list --app "APP_ID" --paginate`
+- Table view: `asc testflight crashes list --app "APP_ID" --sort -createdDate --limit 10 --output table`
 
 ## TestFlight beta feedback
 
 List recent feedback (newest first):
 
-- `asc feedback --app "APP_ID" --sort -createdDate --limit 10`
-- With screenshots: `asc feedback --app "APP_ID" --sort -createdDate --limit 10 --include-screenshots`
-- Filter by build: `asc feedback --app "APP_ID" --build "BUILD_ID" --sort -createdDate`
-- All feedback: `asc feedback --app "APP_ID" --paginate`
+- `asc testflight feedback list --app "APP_ID" --sort -createdDate --limit 10`
+- With screenshots: `asc testflight feedback list --app "APP_ID" --sort -createdDate --limit 10 --include-screenshots`
+- Filter by build: `asc testflight feedback list --app "APP_ID" --build "BUILD_ID" --sort -createdDate`
+- All feedback: `asc testflight feedback list --app "APP_ID" --paginate`
 
 ## Performance diagnostics (hangs, disk writes, launches)
 

@@ -15,11 +15,12 @@ Use this skill when you need to run or design `asc` commands for App Store Conne
 
 ## Flag conventions
 - Use explicit long flags (e.g., `--app`, `--output`).
-- No interactive prompts; destructive operations require `--confirm`.
+- Prefer explicit flags in automation; some newer commands can prompt for missing fields when run interactively.
+- Destructive operations require `--confirm`.
 - Use `--paginate` when the user wants all pages.
 
 ## Output formats
-- Default output is minified JSON.
+- Output defaults are TTY-aware: `table` in interactive terminals, `json` when piped or non-interactive.
 - Use `--output table` or `--output markdown` only for human-readable output.
 - `--pretty` is only valid with JSON output.
 
