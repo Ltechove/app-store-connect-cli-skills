@@ -63,7 +63,7 @@ Agent-first screenshot pipeline using xcodebuild/simctl, AXe, JSON plans, `asc s
 - You want AXe-based UI driving before capture
 - You need a staged pipeline (capture -> frame -> upload)
 - You need to discover supported frame devices (`asc screenshots list-frame-devices`)
-- You want pinned Koubou guidance for deterministic framing (`koubou==0.13.0`)
+- You want pinned Koubou guidance for deterministic framing (`koubou==0.14.0`)
 
 ### asc-release-flow
 
@@ -107,6 +107,24 @@ Translate App Store metadata (description, keywords, what's new, subtitle) to mu
 - You want to localize an app's App Store listing from a source locale (usually en-US)
 - You need locale-aware keywords (not literal translations) and strict character limit enforcement
 - You want a review-before-upload workflow for translations
+
+### asc-aso-audit
+
+Run an offline ASO audit on canonical App Store metadata under `./metadata` and surface keyword gaps using Astro MCP.
+
+**Use when:**
+- You want to audit subtitle, keywords, description, and what's new fields for waste and formatting issues
+- You want keyword-gap analysis against Astro-tracked rankings and competitor terms
+- You want follow-up actions that map cleanly to `asc metadata keywords ...`
+
+### asc-whats-new-writer
+
+Generate engaging, localized App Store release notes from git log, bullet points, or free text using canonical metadata under `./metadata`.
+
+**Use when:**
+- You want polished What's New copy from rough release inputs
+- You want localized release notes across existing locales
+- You want a review-before-upload workflow using `asc metadata push` or direct metadata edits
 
 ### asc-submission-health
 
@@ -181,12 +199,12 @@ Triage TestFlight crashes, beta feedback, and performance diagnostics.
 
 ### asc-wall-submit
 
-Submit or update an app entry in the App-Store-Connect-CLI Wall of Apps using the existing generate-and-PR workflow.
+Submit or update an app entry in the App-Store-Connect-CLI Wall of Apps using `asc apps wall submit`.
 
 **Use when:**
 - You want to add your app to the Wall of Apps
 - You want to update an existing Wall entry
-- You want the exact `make generate app` + PR submission flow
+- You want the built-in CLI Wall submission flow
 
 ## Installation
 
