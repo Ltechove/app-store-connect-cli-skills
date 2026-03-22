@@ -10,6 +10,7 @@ Use this skill when the real question is "Can my app be ready to submit?" and th
 ## Preconditions
 - Ensure credentials are set (`asc auth login` or `ASC_*` env vars).
 - Resolve app ID, version string, and build ID up front.
+- For lower-level or first-time flows, also be ready to resolve `VERSION_ID`, `SUBMISSION_ID`, `DETAIL_ID`, `GROUP_ID`, `SUB_ID`, `IAP_ID`, and related resource IDs. Use `asc-id-resolver` when needed.
 - Have a metadata directory ready if you plan to use `asc release run`.
 - If you use experimental web-session commands, use a user-owned Apple Account session and treat those commands as optional escape hatches, not the default path.
 
@@ -64,6 +65,8 @@ Run this when the user needs a fuller version-level checklist than `submit prefl
 ```bash
 asc validate --app "APP_ID" --version "1.2.3" --platform IOS --output table
 ```
+
+Prefer the version string form here so it stays aligned with `asc submit preflight` and `asc release run`. Switch to `VERSION_ID` only for lower-level commands that explicitly require it.
 
 If the app sells digital goods, also run:
 
@@ -285,7 +288,9 @@ Use the lower-level flow only when the user needs explicit control over each ste
 asc versions attach-build --version-id "VERSION_ID" --build "BUILD_ID"
 asc submit preflight --app "APP_ID" --version "1.2.3" --platform IOS
 asc submit create --app "APP_ID" --version "1.2.3" --build "BUILD_ID" --confirm
-asc status --app "APP_ID"
+asc submit status --version-id "VERSION_ID"
+# or, if you captured the review submission ID:
+asc submit status --id "SUBMISSION_ID"
 ```
 
 If the submission needs multiple review items, such as Game Center component versions, use the review-submission API directly instead:
