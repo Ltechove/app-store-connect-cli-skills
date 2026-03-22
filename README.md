@@ -95,17 +95,17 @@ Build my iOS app, capture the home and settings screens in the simulator, frame 
 
 ### asc-release-flow
 
-End-to-end release workflows for TestFlight and App Store.
+Readiness-first App Store submission guidance, including first-time release blockers.
 
 **Use when:**
-- You want to upload, distribute, and submit in one flow
-- You need the manual sequence for fine-grained control
-- You're releasing for iOS, macOS, visionOS, or tvOS
+- You want the quickest answer to "can I submit this app now?"
+- You need to separate API-fixable, web-session-fixable, and manual blockers
+- You're handling first-time submission issues around availability, IAPs, subscriptions, Game Center, or App Privacy
 
 **Example:**
 
 ```bash
-Publish version 2.4.0 of my iOS app to TestFlight for the Beta Testers group and wait for processing.
+Check whether version 2.4.0 of my iOS app is ready for App Store submission, show the blockers, and tell me the next `asc` command to run.
 ```
 
 ### asc-signing-setup

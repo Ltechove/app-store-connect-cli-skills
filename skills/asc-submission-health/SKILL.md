@@ -92,8 +92,10 @@ cannot verify whether App Privacy is fully published. Before final submission:
 
 ```bash
 asc submit preflight --app "APP_ID" --version "1.2.3" --platform IOS
-asc validate --app "APP_ID" --version-id "VERSION_ID" --platform IOS
+asc validate --app "APP_ID" --version "1.2.3" --platform IOS
 ```
+
+Prefer the version string form for top-level readiness checks in this skill so it stays aligned with `asc submit preflight`. Lower-level commands later in this guide still use `VERSION_ID` where the API requires it.
 
 If either command reports an App Privacy advisory, the public API cannot verify
 publish state. Use the web-session privacy workflow if you rely on those endpoints:
