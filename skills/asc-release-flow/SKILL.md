@@ -111,6 +111,8 @@ See `asc-submission-health` skill for detailed preflight checks.
 ## Notes
 - Always use `--help` to verify flags for the exact command.
 - `asc submit preflight`, `asc validate`, and `asc release run` can surface App Privacy advisories even when required checks pass.
-- App Privacy publish state is not fully verifiable via the public API, so confirm it manually before final submission.
+- App Privacy publish state is not fully verifiable via the public API.
+- If you use ASC web-session flows, reconcile and publish App Privacy with `asc web privacy pull|plan|apply|publish`.
+- Otherwise confirm App Privacy manually before final submission.
 - Use `--output table` / `--output markdown` for human-readable output; default is JSON.
 - macOS builds require `ITSAppUsesNonExemptEncryption` in Info.plist to avoid encryption issues.

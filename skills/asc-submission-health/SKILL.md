@@ -95,7 +95,18 @@ asc submit preflight --app "APP_ID" --version "1.2.3" --platform IOS
 asc validate --app "APP_ID" --version-id "VERSION_ID" --platform IOS
 ```
 
-If either command reports an App Privacy advisory, confirm it manually in App Store Connect:
+If either command reports an App Privacy advisory, the public API cannot verify
+publish state. Use the web-session privacy workflow if you rely on those endpoints:
+
+```bash
+asc web privacy pull --app "APP_ID" --out "./privacy.json"
+asc web privacy plan --app "APP_ID" --file "./privacy.json"
+asc web privacy apply --app "APP_ID" --file "./privacy.json"
+asc web privacy publish --app "APP_ID" --confirm
+```
+
+If you do not want to use the experimental `asc web privacy ...` commands,
+confirm App Privacy manually in App Store Connect:
 
 ```text
 https://appstoreconnect.apple.com/apps/APP_ID/appPrivacy
@@ -170,6 +181,8 @@ asc apps info list --app "APP_ID"
 ## Notes
 - `asc submit create` uses the new reviewSubmissions API automatically.
 - `asc submit preflight` can return non-blocking advisories; review them before submitting.
-- App Privacy publish state is not verifiable via the public API, so always confirm it manually in App Store Connect.
+- App Privacy publish state is not verifiable via the public API.
+- If you use ASC web-session flows, `asc web privacy pull|plan|apply|publish` is the CLI path for App Privacy.
+- If you avoid the experimental web-session commands, confirm App Privacy manually in App Store Connect.
 - Use `--output table` when you want human-readable status.
 - macOS submissions follow the same process but use `--platform MAC_OS`.
