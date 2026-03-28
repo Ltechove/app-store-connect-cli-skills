@@ -16,7 +16,7 @@ Use this skill to reduce review submission failures and monitor status.
 
 ### 1. Verify Build Status
 ```bash
-asc builds info --build "BUILD_ID"
+asc builds info --build-id "BUILD_ID"
 ```
 Check:
 - `processingState` is `VALID`
@@ -125,7 +125,7 @@ asc validate iap --app "APP_ID" --output table
 asc validate subscriptions --app "APP_ID" --output table
 ```
 
-In `0.45.3+`, `asc validate subscriptions` expands `MISSING_METADATA` into a per-subscription diagnostics matrix. Use it to identify missing review screenshots, promotional images, pricing or availability coverage gaps, offer readiness, and app/build evidence before retrying submit or first-review attach.
+In current asc, `asc validate subscriptions` expands `MISSING_METADATA` into a per-subscription diagnostics matrix. Use it to identify missing review screenshots, promotional images, pricing or availability coverage gaps, offer readiness, and app/build evidence before retrying submit or first-review attach.
 
 Use `--output json --pretty` when you want exact territory gaps in machine-readable form.
 
